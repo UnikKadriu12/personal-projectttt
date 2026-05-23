@@ -378,7 +378,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'lamborghini',
             'price' => 'From $620/day',
             'year' => '2024',
-            'image' => 'https://images.unsplash.com/photo-1549921296-3f4d7eec9b30?w=800&q=80',
+            'image' => 'https://images.unsplash.com/photo-1505188136650-733655f86fee?auto=format&fit=crop&w=800&q=80',
         ),
         array(
             'title' => 'BMW X7',
@@ -386,7 +386,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bmw',
             'price' => 'From $198/day',
             'year' => '2024',
-            'image' => 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
+            'image' => 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=800&q=80',
         ),
         array(
             'title' => 'BMW 4 Series',
@@ -394,7 +394,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bmw',
             'price' => 'From $122/day',
             'year' => '2024',
-            'image' => 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=800&q=80',
+            'image' => 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80',
         ),
         array(
             'title' => 'BMW Z4',
@@ -402,7 +402,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bmw',
             'price' => 'From $136/day',
             'year' => '2024',
-            'image' => 'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=800&q=80',
+            'image' => 'https://images.unsplash.com/photo-1474142705834-491a558c9b76?auto=format&fit=crop&w=800&q=80',
         ),
         array(
             'title' => 'Audi S5 Sportback',

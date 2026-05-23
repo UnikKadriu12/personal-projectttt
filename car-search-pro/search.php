@@ -15,6 +15,10 @@
                         <a href="<?php the_permalink(); ?>"><img src="<?php echo esc_url($car_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" /></a>
                     <?php endif; ?>
                     <div class="car-card-body">
+                        <?php $car_brand = get_the_terms(get_the_ID(), 'car_brand'); ?>
+                        <?php if (!empty($car_brand) && !is_wp_error($car_brand)) : ?>
+                            <p class="car-card-brand"><?php echo esc_html($car_brand[0]->name); ?></p>
+                        <?php endif; ?>
                         <h3 class="car-card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         <p class="car-card-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 22, '...'); ?></p>
                         <div class="car-card-meta">
