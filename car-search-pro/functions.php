@@ -29,6 +29,7 @@ function car_search_pro_register_car_post_type() {
         'search_items' => __('Search Cars', 'car-search-pro'),
         'not_found' => __('No cars found', 'car-search-pro'),
         'not_found_in_trash' => __('No cars found in trash', 'car-search-pro'),
+        'archives' => __('Car Archives', 'car-search-pro'),
     );
 
     $args = array(

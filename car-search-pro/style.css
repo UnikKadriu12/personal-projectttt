@@ -92,27 +92,28 @@ select {
 
 .hero {
   min-height: 92vh;
-  background: linear-gradient(180deg, rgba(9, 9, 9, 0.92), rgba(9, 9, 9, 0.92)), url('https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+  background: linear-gradient(180deg, rgba(9, 9, 9, 0.90), rgba(9, 9, 9, 0.94)), url('https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
   display: grid;
   place-items: center;
-  padding: 96px 24px;
+  padding: 96px 24px 72px;
 }
 
 .hero-inner {
-  max-width: 980px;
+  max-width: 860px;
   text-align: center;
 }
 
 .hero-title {
-  font-size: clamp(2.85rem, 5vw, 5rem);
+  font-size: clamp(3rem, 5vw, 5rem);
   margin: 0 0 18px;
   line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
 .hero-subtitle {
-  max-width: 720px;
+  max-width: 700px;
   margin: 0 auto 32px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 1.1rem;
 }
 
@@ -126,58 +127,69 @@ select {
 .button-primary,
 .button-secondary {
   border: none;
-  padding: 16px 30px;
+  padding: 16px 28px;
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
 .button-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 18px 50px rgba(255, 69, 0, 0.22);
 }
 
 .button-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
 }
 
 .search-panel {
   margin-top: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 28px;
-  border-radius: 24px;
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 32px;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
 }
 
 .search-form {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 16px;
+  gap: 18px;
 }
 
 .search-field {
   width: 100%;
-  min-height: 56px;
-  padding: 0 18px;
-  border-radius: 14px;
+  min-height: 64px;
+  padding: 0 20px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.06);
   color: var(--text);
 }
 
 .search-field::placeholder {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .search-submit {
-  min-width: 160px;
-  border-radius: 14px;
+  min-width: 180px;
+  border-radius: 16px;
   background: var(--accent);
   color: #fff;
   border: none;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
 }
 
 .site-content {
@@ -203,12 +215,51 @@ select {
 }
 
 .car-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.car-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.car-card-body {
+  padding: 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-card-title {
+  margin: 0 0 16px;
+  font-size: 1.45rem;
+  line-height: 1.12;
+}
+
+.car-card-excerpt {
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 22px;
+  flex: 1;
+}
+
+.car-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.car-card-meta span {
+  color: var(--text);
 }
 
 .car-detail-grid {

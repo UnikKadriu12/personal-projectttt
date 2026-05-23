@@ -2,13 +2,13 @@
 
 <section class="hero">
     <div class="hero-inner">
-        <p class="eyebrow" style="color: #ff9c4b; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.85rem; margin-bottom: 16px;">Premium car rentals</p>
-        <h1 class="hero-title"><?php _e('Search the best cars for your next journey', 'car-search-pro'); ?></h1>
-        <p class="hero-subtitle"><?php _e('Find luxury sedans, sports cars, SUVs, and airport transfer vehicles with a single search. Compare availability, details, and rental options instantly.', 'car-search-pro'); ?></p>
+        <p class="eyebrow" style="color: #ff9c4b; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.85rem; margin-bottom: 16px;">Luxury car rentals</p>
+        <h1 class="hero-title"><?php _e('Find the perfect rental car in minutes', 'car-search-pro'); ?></h1>
+        <p class="hero-subtitle"><?php _e('Choose from premium sedans, SUVs, and executive vehicles with transparent pricing and professional service. Browse the fleet and reserve the ideal car today.', 'car-search-pro'); ?></p>
 
         <div class="hero-actions">
-            <a class="button-primary" href="<?php echo esc_url(home_url('/?post_type=car')); ?>"><?php _e('Browse Cars', 'car-search-pro'); ?></a>
-            <a class="button-secondary" href="<?php echo esc_url(home_url('/?s=&post_type=car')); ?>"><?php _e('View All Listings', 'car-search-pro'); ?></a>
+            <a class="button-primary" href="<?php echo esc_url(get_post_type_archive_link('car')); ?>"><?php _e('Browse Fleet', 'car-search-pro'); ?></a>
+            <a class="button-secondary" href="<?php echo esc_url(get_post_type_archive_link('car')); ?>"><?php _e('View All Rentals', 'car-search-pro'); ?></a>
         </div>
 
         <div class="search-panel">
@@ -67,6 +67,33 @@
                             <p class="car-card-excerpt"><?php _e('Elegant midsize SUV with refined design and first-class comfort.', 'car-search-pro'); ?></p>
                             <div class="car-card-meta">
                                 <span><?php _e('From $115/day', 'car-search-pro'); ?></span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="car-card">
+                        <div class="car-card-body">
+                            <h3 class="car-card-title"><?php _e('Lexus RX 350', 'car-search-pro'); ?></h3>
+                            <p class="car-card-excerpt"><?php _e('Luxury crossover with premium comfort, smooth handling, and advanced safety.', 'car-search-pro'); ?></p>
+                            <div class="car-card-meta">
+                                <span><?php _e('From $110/day', 'car-search-pro'); ?></span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="car-card">
+                        <div class="car-card-body">
+                            <h3 class="car-card-title"><?php _e('Jaguar F-Type', 'car-search-pro'); ?></h3>
+                            <p class="car-card-excerpt"><?php _e('Sporty coupe with thrilling performance and sleek British design.', 'car-search-pro'); ?></p>
+                            <div class="car-card-meta">
+                                <span><?php _e('From $145/day', 'car-search-pro'); ?></span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="car-card">
+                        <div class="car-card-body">
+                            <h3 class="car-card-title"><?php _e('Cadillac Escalade', 'car-search-pro'); ?></h3>
+                            <p class="car-card-excerpt"><?php _e('Full-size luxury SUV with spacious seating and premium amenities for groups.', 'car-search-pro'); ?></p>
+                            <div class="car-card-meta">
+                                <span><?php _e('From $155/day', 'car-search-pro'); ?></span>
                             </div>
                         </div>
                     </article>
