@@ -11,6 +11,8 @@
                 <article class="car-card">
                     <?php if (has_post_thumbnail()) : ?>
                         <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large'); ?></a>
+                    <?php elseif ($car_image = get_post_meta(get_the_ID(), 'car_image', true)) : ?>
+                        <a href="<?php the_permalink(); ?>"><img src="<?php echo esc_url($car_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" /></a>
                     <?php endif; ?>
                     <div class="car-card-body">
                         <h3 class="car-card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>

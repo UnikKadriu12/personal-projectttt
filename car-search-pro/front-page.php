@@ -19,7 +19,7 @@
                     <?php
                     $popular_cars = new WP_Query(array(
                         'post_type' => 'car',
-                        'posts_per_page' => 10,
+                        'posts_per_page' => 12,
                         'orderby' => 'date',
                         'order' => 'DESC',
                     ));
