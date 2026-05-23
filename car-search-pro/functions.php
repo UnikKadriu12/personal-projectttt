@@ -53,6 +53,41 @@ function car_search_pro_register_car_post_type() {
 add_action('init', 'car_search_pro_register_car_post_type');
 add_action('init', 'car_search_pro_insert_demo_cars');
 
+function car_search_pro_attach_image_from_url($post_id, $image_url) {
+    if (empty($image_url)) {
+        return;
+    }
+    require_once ABSPATH . 'wp-admin/includes/media.php';
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    $remote_get = wp_remote_get($image_url);
+    if (is_wp_error($remote_get)) {
+        return;
+    }
+    $image_content = wp_remote_retrieve_body($remote_get);
+    $filename = basename(parse_url($image_url, PHP_URL_PATH));
+    if (empty($filename)) {
+        $filename = 'car-' . $post_id . '.jpg';
+    }
+    $upload_file = wp_upload_bits($filename, null, $image_content);
+    if ($upload_file['error']) {
+        return;
+    }
+    $file_path = $upload_file['file'];
+    $file_type = wp_check_filetype($file_path);
+    $attachment = array(
+        'post_mime_type' => $file_type['type'],
+        'post_title' => preg_replace('/\\.[^.]+$/', '', basename($file_path)),
+        'post_content' => '',
+        'post_status' => 'inherit',
+    );
+    $attach_id = wp_insert_attachment($attachment, $file_path, $post_id);
+    if (!is_wp_error($attach_id)) {
+        wp_update_attachment_metadata($attach_id, wp_generate_attachment_metadata($attach_id, $file_path));
+        set_post_thumbnail($post_id, $attach_id);
+    }
+}
+
 function car_search_pro_insert_demo_cars() {
     if (get_option('car_search_pro_demo_cars_created')) {
         return;
@@ -96,6 +131,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bmw',
             'price' => 'From $105/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&q=80',
         ),
         array(
             'title' => 'Mercedes-Benz E-Class',
@@ -103,6 +139,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'mercedes-benz',
             'price' => 'From $89/day',
             'year' => '2022',
+            'image' => 'https://images.unsplash.com/photo-1553882900-f2b06423fffa?w=800&q=80',
         ),
         array(
             'title' => 'Audi A6',
@@ -110,6 +147,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'audi',
             'price' => 'From $95/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1606611283684-ace0d36b4e6c?w=800&q=80',
         ),
         array(
             'title' => 'Porsche Panamera',
@@ -117,6 +155,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'porsche',
             'price' => 'From $135/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800&q=80',
         ),
         array(
             'title' => 'Tesla Model S',
@@ -124,6 +163,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'tesla',
             'price' => 'From $120/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1560958089-b8a63c50c8f1?w=800&q=80',
         ),
         array(
             'title' => 'Range Rover Velar',
@@ -131,6 +171,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'range-rover',
             'price' => 'From $115/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
         ),
         array(
             'title' => 'Lexus RX 350',
@@ -138,6 +179,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'lexus',
             'price' => 'From $110/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1606611283684-ace0d36b4e6c?w=800&q=80',
         ),
         array(
             'title' => 'Jaguar F-Type',
@@ -145,6 +187,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'jaguar',
             'price' => 'From $145/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=800&q=80',
         ),
         array(
             'title' => 'Cadillac Escalade',
@@ -152,6 +195,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'cadillac',
             'price' => 'From $155/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1605559424843-9e4c3feb3a9f?w=800&q=80',
         ),
         array(
             'title' => 'Aston Martin DB11',
@@ -159,6 +203,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'aston-martin',
             'price' => 'From $225/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1614162692741-3fc627cfc372?w=800&q=80',
         ),
         array(
             'title' => 'Bentley Bentayga',
@@ -166,6 +211,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bentley',
             'price' => 'From $320/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1605559424843-9e4c3feb3a9f?w=800&q=80',
         ),
         array(
             'title' => 'Volvo XC90',
@@ -173,6 +219,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'volvo',
             'price' => 'From $98/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
         ),
         array(
             'title' => 'BMW M5',
@@ -180,6 +227,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'bmw',
             'price' => 'From $165/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1619405399517-d4dc2ebe6e73?w=800&q=80',
         ),
         array(
             'title' => 'Mercedes-Benz GLE',
@@ -187,6 +235,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'mercedes-benz',
             'price' => 'From $125/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&q=80',
         ),
         array(
             'title' => 'Audi Q8',
@@ -194,6 +243,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'audi',
             'price' => 'From $135/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
         ),
         array(
             'title' => 'Porsche 911',
@@ -201,6 +251,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'porsche',
             'price' => 'From $155/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80',
         ),
         array(
             'title' => 'Tesla Model X',
@@ -208,6 +259,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'tesla',
             'price' => 'From $140/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1605559424843-9e4c3feb3a9f?w=800&q=80',
         ),
         array(
             'title' => 'Range Rover Sport',
@@ -215,6 +267,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'range-rover',
             'price' => 'From $135/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
         ),
         array(
             'title' => 'Lexus LC 500',
@@ -222,6 +275,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'lexus',
             'price' => 'From $180/day',
             'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1618405959076-a08ab6604b20?w=800&q=80',
         ),
         array(
             'title' => 'Jaguar XJ',
@@ -229,6 +283,7 @@ function car_search_pro_insert_demo_cars() {
             'brand' => 'jaguar',
             'price' => 'From $155/day',
             'year' => '2023',
+            'image' => 'https://images.unsplash.com/photo-1553882900-f2b06423fffa?w=800&q=80',
         ),
     );
 
@@ -247,6 +302,9 @@ function car_search_pro_insert_demo_cars() {
 
         if (!is_wp_error($post_id)) {
             wp_set_post_terms($post_id, array($car['brand']), 'car_brand', false);
+            if (isset($car['image']) && !empty($car['image'])) {
+                car_search_pro_attach_image_from_url($post_id, $car['image']);
+            }
         }
     }
 
