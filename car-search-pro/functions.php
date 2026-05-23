@@ -89,18 +89,12 @@ function car_search_pro_attach_image_from_url($post_id, $image_url) {
 }
 
 function car_search_pro_insert_demo_cars() {
-    if (get_option('car_search_pro_demo_cars_created')) {
-        return;
-    }
-
     if (!post_type_exists('car')) {
         return;
     }
 
-    $published_cars = wp_count_posts('car')->publish;
-    if ($published_cars > 0) {
+    if (!get_option('car_search_pro_demo_cars_created')) {
         update_option('car_search_pro_demo_cars_created', 1);
-        return;
     }
 
     $demo_brands = array(
@@ -116,6 +110,8 @@ function car_search_pro_insert_demo_cars() {
         'aston-martin' => 'Aston Martin',
         'bentley' => 'Bentley',
         'volvo' => 'Volvo',
+        'maserati' => 'Maserati',
+        'infiniti' => 'Infiniti',
         'ferrari' => 'Ferrari',
         'mclaren' => 'McLaren',
         'lamborghini' => 'Lamborghini',
@@ -384,21 +380,93 @@ function car_search_pro_insert_demo_cars() {
             'year' => '2024',
             'image' => 'https://images.unsplash.com/photo-1549921296-3f4d7eec9b30?w=800&q=80',
         ),
+        array(
+            'title' => 'BMW X7',
+            'content' => 'Full-size luxury SUV with three-row seating and signature BMW refinement.',
+            'brand' => 'bmw',
+            'price' => 'From $198/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
+        ),
+        array(
+            'title' => 'BMW 4 Series',
+            'content' => 'Sporty coupe and convertible lines for a stylish everyday luxury drive.',
+            'brand' => 'bmw',
+            'price' => 'From $122/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=800&q=80',
+        ),
+        array(
+            'title' => 'BMW Z4',
+            'content' => 'Open-top roadster delivering athletic performance and premium comfort.',
+            'brand' => 'bmw',
+            'price' => 'From $136/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=800&q=80',
+        ),
+        array(
+            'title' => 'Audi S5 Sportback',
+            'content' => 'Performance liftback with elegant design and exhilarating power.',
+            'brand' => 'audi',
+            'price' => 'From $145/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1518696954-17d0a6c2590d?w=800&q=80',
+        ),
+        array(
+            'title' => 'Audi SQ5',
+            'content' => 'Sporty luxury SUV tuned for dynamic handling and premium cabin comfort.',
+            'brand' => 'audi',
+            'price' => 'From $142/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
+        ),
+        array(
+            'title' => 'Audi e-tron GT',
+            'content' => 'Electric grand tourer combining sophisticated luxury with instant acceleration.',
+            'brand' => 'audi',
+            'price' => 'From $175/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1549921296-3f4d7eec9b30?w=800&q=80',
+        ),
+        array(
+            'title' => 'Maserati Levante',
+            'content' => 'Italian luxury SUV with exotic style and a thrilling V6 engine.',
+            'brand' => 'maserati',
+            'price' => 'From $235/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1605559424843-9e4c3feb3a9f?w=800&q=80',
+        ),
+        array(
+            'title' => 'Infiniti Q60',
+            'content' => 'Sleek coupe blending sporty performance with refined luxury design.',
+            'brand' => 'infiniti',
+            'price' => 'From $128/day',
+            'year' => '2024',
+            'image' => 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800&q=80',
+        ),
     );
 
     foreach ($demo_cars as $car) {
-        $post_id = wp_insert_post(array(
-            'post_title' => $car['title'],
-            'post_content' => $car['content'],
-            'post_excerpt' => $car['content'],
-            'post_status' => 'publish',
-            'post_type' => 'car',
-            'meta_input' => array(
-                'car_price' => $car['price'],
-                'car_year' => $car['year'],
-                'car_image' => isset($car['image']) ? $car['image'] : '',
-            ),
-        ));
+        $existing_car = get_page_by_title($car['title'], OBJECT, 'car');
+        if ($existing_car) {
+            $post_id = $existing_car->ID;
+            update_post_meta($post_id, 'car_price', $car['price']);
+            update_post_meta($post_id, 'car_year', $car['year']);
+            update_post_meta($post_id, 'car_image', isset($car['image']) ? $car['image'] : '');
+        } else {
+            $post_id = wp_insert_post(array(
+                'post_title' => $car['title'],
+                'post_content' => $car['content'],
+                'post_excerpt' => $car['content'],
+                'post_status' => 'publish',
+                'post_type' => 'car',
+                'meta_input' => array(
+                    'car_price' => $car['price'],
+                    'car_year' => $car['year'],
+                    'car_image' => isset($car['image']) ? $car['image'] : '',
+                ),
+            ));
+        }
 
         if (!is_wp_error($post_id)) {
             wp_set_post_terms($post_id, array($car['brand']), 'car_brand', false);
