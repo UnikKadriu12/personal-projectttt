@@ -66,20 +66,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rental_request_submit
                     <h3><?php _e('Request Rental', 'car-search-pro'); ?></h3>
                     <p><?php _e('Complete the form below to request this car. We will reach out with availability and pricing details.', 'car-search-pro'); ?></p>
 
-                    <?php if ($rental_message) : ?>
-                        <div class="rent-message"><?php echo wp_kses_post($rental_message); ?></div>
-                    <?php endif; ?>
-
+                    <?php if (!empty($rental_message)) : ?>
+                        <div class="rent-message" style="margin-bottom: 20px; padding: 18px; border-radius: 12px; background: rgba(76, 175, 80, 0.15); border: 2px solid rgba(76, 175, 80, 0.4); color: #66BB6A; font-weight: 500;">
+                            ✓ <strong><?php _e('Confirmed!', 'car-search-pro'); ?></strong><br /><?php echo wp_kses_post($rental_message); ?>
+                        </div>
+                    <?php else : ?>
                     <form id="rent-form" class="rent-form" method="post" action="<?php echo esc_url(get_permalink()); ?>">
                         <?php wp_nonce_field('rental_request_action', 'rental_request_nonce'); ?>
 
                         <label>
-                            <?php _e('Full Name', 'car-search-pro'); ?>
+                            <?php _e('Full Name', 'car-search-pro'); ?> <span style="color: #ff4500;">*</span>
                             <input type="text" name="renter_name" required />
                         </label>
 
                         <label>
-                            <?php _e('Email Address', 'car-search-pro'); ?>
+                            <?php _e('Email Address', 'car-search-pro'); ?> <span style="color: #ff4500;">*</span>
                             <input type="email" name="renter_email" required />
                         </label>
 
@@ -98,8 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rental_request_submit
                             <textarea name="renter_notes"></textarea>
                         </label>
 
-                        <button type="submit" name="rental_request_submit" class="button-primary"><?php _e('Send Request', 'car-search-pro'); ?></button>
+                        <button type="submit" class="button-primary" style="width: 100%; margin-top: 10px;"><?php _e('Send Request', 'car-search-pro'); ?></button>
                     </form>
+                    <?php endif; ?>
                 </div>
             </aside>
         </div>
