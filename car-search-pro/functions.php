@@ -297,14 +297,12 @@ function car_search_pro_insert_demo_cars() {
             'meta_input' => array(
                 'car_price' => $car['price'],
                 'car_year' => $car['year'],
+                'car_image' => isset($car['image']) ? $car['image'] : '',
             ),
         ));
 
         if (!is_wp_error($post_id)) {
             wp_set_post_terms($post_id, array($car['brand']), 'car_brand', false);
-            if (isset($car['image']) && !empty($car['image'])) {
-                car_search_pro_attach_image_from_url($post_id, $car['image']);
-            }
         }
     }
 

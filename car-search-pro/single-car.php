@@ -20,9 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rental_request_submit
 
         <div class="car-detail-grid">
             <div class="car-detail-summary">
-                <?php if (has_post_thumbnail()) : ?>
+                <?php 
+                $car_image = get_post_meta(get_the_ID(), 'car_image', true);
+                if ($car_image || has_post_thumbnail()) : 
+                ?>
                     <div class="car-detail-image">
-                        <?php the_post_thumbnail('large'); ?>
+                        <?php if ($car_image) : ?>
+                            <img src="<?php echo esc_url($car_image); ?>" alt="<?php the_title(); ?>" />
+                        <?php elseif (has_post_thumbnail()) : ?>
+                            <?php the_post_thumbnail('large'); ?>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
