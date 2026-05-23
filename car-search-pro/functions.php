@@ -51,6 +51,207 @@ function car_search_pro_register_car_post_type() {
     ));
 }
 add_action('init', 'car_search_pro_register_car_post_type');
+add_action('init', 'car_search_pro_insert_demo_cars');
+
+function car_search_pro_insert_demo_cars() {
+    if (get_option('car_search_pro_demo_cars_created')) {
+        return;
+    }
+
+    if (!post_type_exists('car')) {
+        return;
+    }
+
+    $published_cars = wp_count_posts('car')->publish;
+    if ($published_cars > 0) {
+        update_option('car_search_pro_demo_cars_created', 1);
+        return;
+    }
+
+    $demo_brands = array(
+        'bmw' => 'BMW',
+        'mercedes-benz' => 'Mercedes-Benz',
+        'audi' => 'Audi',
+        'porsche' => 'Porsche',
+        'tesla' => 'Tesla',
+        'range-rover' => 'Range Rover',
+        'lexus' => 'Lexus',
+        'jaguar' => 'Jaguar',
+        'cadillac' => 'Cadillac',
+        'aston-martin' => 'Aston Martin',
+        'bentley' => 'Bentley',
+        'volvo' => 'Volvo',
+    );
+
+    foreach ($demo_brands as $slug => $name) {
+        if (!term_exists($slug, 'car_brand')) {
+            wp_insert_term($name, 'car_brand', array('slug' => $slug));
+        }
+    }
+
+    $demo_cars = array(
+        array(
+            'title' => 'BMW X5',
+            'content' => 'Spacious SUV with premium comfort and advanced safety features.',
+            'brand' => 'bmw',
+            'price' => 'From $105/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Mercedes-Benz E-Class',
+            'content' => 'Luxury executive sedan ideal for business travelers and city drives.',
+            'brand' => 'mercedes-benz',
+            'price' => 'From $89/day',
+            'year' => '2022',
+        ),
+        array(
+            'title' => 'Audi A6',
+            'content' => 'Refined sedan with a smooth ride for airport transfers and weekend trips.',
+            'brand' => 'audi',
+            'price' => 'From $95/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Porsche Panamera',
+            'content' => 'Sporty luxury saloon with exceptional handling and premium interiors.',
+            'brand' => 'porsche',
+            'price' => 'From $135/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Tesla Model S',
+            'content' => 'Electric performance sedan with cutting-edge range and smart technology.',
+            'brand' => 'tesla',
+            'price' => 'From $120/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Range Rover Velar',
+            'content' => 'Elegant midsize SUV with refined design and first-class comfort.',
+            'brand' => 'range-rover',
+            'price' => 'From $115/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Lexus RX 350',
+            'content' => 'Luxury crossover with premium comfort, smooth handling, and advanced safety.',
+            'brand' => 'lexus',
+            'price' => 'From $110/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Jaguar F-Type',
+            'content' => 'Sporty coupe with thrilling performance and sleek British design.',
+            'brand' => 'jaguar',
+            'price' => 'From $145/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Cadillac Escalade',
+            'content' => 'Full-size luxury SUV with spacious seating and premium amenities for groups.',
+            'brand' => 'cadillac',
+            'price' => 'From $155/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Aston Martin DB11',
+            'content' => 'High-performance grand tourer with elegant styling and refined craftsmanship.',
+            'brand' => 'aston-martin',
+            'price' => 'From $225/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Bentley Bentayga',
+            'content' => 'Ultra-luxury SUV with exceptional comfort, power, and bespoke interior details.',
+            'brand' => 'bentley',
+            'price' => 'From $320/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Volvo XC90',
+            'content' => 'Premium family SUV with Scandinavian luxury, safety, and intelligent design.',
+            'brand' => 'volvo',
+            'price' => 'From $98/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'BMW M5',
+            'content' => 'High-performance luxury sedan with dynamic handling and cutting-edge technology.',
+            'brand' => 'bmw',
+            'price' => 'From $165/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Mercedes-Benz GLE',
+            'content' => 'Bold SUV combining luxury, performance, and intelligent engineering.',
+            'brand' => 'mercedes-benz',
+            'price' => 'From $125/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Audi Q8',
+            'content' => 'Avant-garde luxury SUV with sleek design and premium technology.',
+            'brand' => 'audi',
+            'price' => 'From $135/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Porsche 911',
+            'content' => 'Iconic sports car with legendary performance and timeless appeal.',
+            'brand' => 'porsche',
+            'price' => 'From $155/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Tesla Model X',
+            'content' => 'Futuristic electric SUV with impressive acceleration and smart features.',
+            'brand' => 'tesla',
+            'price' => 'From $140/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Range Rover Sport',
+            'content' => 'Dynamic SUV blending sporty performance with sophisticated refinement.',
+            'brand' => 'range-rover',
+            'price' => 'From $135/day',
+            'year' => '2023',
+        ),
+        array(
+            'title' => 'Lexus LC 500',
+            'content' => 'Grand tourer with stunning design, powerful engine, and bespoke luxury.',
+            'brand' => 'lexus',
+            'price' => 'From $180/day',
+            'year' => '2024',
+        ),
+        array(
+            'title' => 'Jaguar XJ',
+            'content' => 'Elegant sedan with contemporary design and refined driving experience.',
+            'brand' => 'jaguar',
+            'price' => 'From $155/day',
+            'year' => '2023',
+        ),
+    );
+
+    foreach ($demo_cars as $car) {
+        $post_id = wp_insert_post(array(
+            'post_title' => $car['title'],
+            'post_content' => $car['content'],
+            'post_excerpt' => $car['content'],
+            'post_status' => 'publish',
+            'post_type' => 'car',
+            'meta_input' => array(
+                'car_price' => $car['price'],
+                'car_year' => $car['year'],
+            ),
+        ));
+
+        if (!is_wp_error($post_id)) {
+            wp_set_post_terms($post_id, array($car['brand']), 'car_brand', false);
+        }
+    }
+
+    update_option('car_search_pro_demo_cars_created', 1);
+}
 
 function car_search_pro_search_form($form) {
     $form = '<form role="search" method="get" class="search-form car-search-form" action="' . esc_url(home_url('/')) . '">';
