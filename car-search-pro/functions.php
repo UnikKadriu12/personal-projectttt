@@ -69,18 +69,6 @@ function car_search_pro_search_form($form) {
     }
     $form .= '</select></div>';
     
-    $form .= '<div class="search-field-group"><label>' . __('Min Price:', 'car-search-pro') . '</label>';
-    $form .= '<input type="number" name="price_min" class="car-filter" placeholder="' . esc_attr__('Min', 'car-search-pro') . '" value="' . (isset($_GET['price_min']) ? esc_attr($_GET['price_min']) : '') . '" /></div>';
-    
-    $form .= '<div class="search-field-group"><label>' . __('Max Price:', 'car-search-pro') . '</label>';
-    $form .= '<input type="number" name="price_max" class="car-filter" placeholder="' . esc_attr__('Max', 'car-search-pro') . '" value="' . (isset($_GET['price_max']) ? esc_attr($_GET['price_max']) : '') . '" /></div>';
-    
-    $form .= '<div class="search-field-group"><label>' . __('Min Year:', 'car-search-pro') . '</label>';
-    $form .= '<input type="number" name="year_min" class="car-filter" placeholder="' . esc_attr__('Min', 'car-search-pro') . '" value="' . (isset($_GET['year_min']) ? esc_attr($_GET['year_min']) : '') . '" /></div>';
-    
-    $form .= '<div class="search-field-group"><label>' . __('Max Year:', 'car-search-pro') . '</label>';
-    $form .= '<input type="number" name="year_max" class="car-filter" placeholder="' . esc_attr__('Max', 'car-search-pro') . '" value="' . (isset($_GET['year_max']) ? esc_attr($_GET['year_max']) : '') . '" /></div>';
-    
     $form .= '</div>';
     $form .= '<button type="submit" class="search-submit">' . esc_html__('Search Cars', 'car-search-pro') . '</button>';
     $form .= '<input type="hidden" name="post_type" value="car" />';
@@ -104,50 +92,6 @@ function car_search_pro_modify_search_query($query) {
                     'terms' => sanitize_text_field($_GET['car_brand']),
                 ),
             ));
-        }
-        
-        // Price range filter
-        $meta_query = array('relation' => 'AND');
-        
-        if (isset($_GET['price_min']) && !empty($_GET['price_min'])) {
-            $meta_query[] = array(
-                'key' => 'car_price',
-                'value' => intval($_GET['price_min']),
-                'compare' => '>=',
-                'type' => 'NUMERIC',
-            );
-        }
-        
-        if (isset($_GET['price_max']) && !empty($_GET['price_max'])) {
-            $meta_query[] = array(
-                'key' => 'car_price',
-                'value' => intval($_GET['price_max']),
-                'compare' => '<=',
-                'type' => 'NUMERIC',
-            );
-        }
-        
-        // Year range filter
-        if (isset($_GET['year_min']) && !empty($_GET['year_min'])) {
-            $meta_query[] = array(
-                'key' => 'car_year',
-                'value' => intval($_GET['year_min']),
-                'compare' => '>=',
-                'type' => 'NUMERIC',
-            );
-        }
-        
-        if (isset($_GET['year_max']) && !empty($_GET['year_max'])) {
-            $meta_query[] = array(
-                'key' => 'car_year',
-                'value' => intval($_GET['year_max']),
-                'compare' => '<=',
-                'type' => 'NUMERIC',
-            );
-        }
-        
-        if (count($meta_query) > 1) {
-            $query->set('meta_query', $meta_query);
         }
     }
 }
