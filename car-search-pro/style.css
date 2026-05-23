@@ -211,6 +211,101 @@ select {
   flex-direction: column;
 }
 
+.car-detail-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.car-detail-image {
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.car-detail-body {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.car-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.car-detail-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.car-detail-description {
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.rent-now-link {
+  display: inline-block;
+  margin-top: 22px;
+}
+
+.car-rent-panel .rent-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.car-rent-panel h3,
+.car-rent-panel p {
+  margin: 0 0 18px;
+}
+
+.rent-form label {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.rent-form input,
+.rent-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  padding: 12px 14px;
+  margin-top: 8px;
+}
+
+.rent-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.rent-form button {
+  margin-top: 10px;
+}
+
+.rent-message {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(69, 210, 148, 0.14);
+  border: 1px solid rgba(69, 210, 148, 0.25);
+  color: #c5ffdf;
+}
+
 .car-card img {
   width: 100%;
   display: block;
