@@ -10,13 +10,6 @@
         <div class="car-grid">
             <?php while (have_posts()) : the_post(); ?>
                 <article class="car-card">
-                    <?php if (has_post_thumbnail()) : ?>
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_post_thumbnail('large'); ?>
-                        </a>
-                    <?php elseif ($car_image = get_post_meta(get_the_ID(), 'car_image', true)) : ?>
-                        <a href="<?php the_permalink(); ?>"><img src="<?php echo esc_url($car_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" /></a>
-                    <?php endif; ?>
                     <div class="car-card-body">
                         <?php $car_brand = get_the_terms(get_the_ID(), 'car_brand'); ?>
                         <?php if (!empty($car_brand) && !is_wp_error($car_brand)) : ?>
